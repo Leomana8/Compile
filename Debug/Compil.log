@@ -1,0 +1,48 @@
+﻿Сборка начата 10.02.2014 21:38:32.
+     1>Проект "D:\Docyment\prog\Teory Language Programming\Compil\Compil.vcxproj" в узле 2 (целевые объекты build).
+     1>InitializeBuildStatus:
+         Создание "Debug\Compil.unsuccessfulbuild", так как было задано "AlwaysCreate".
+       ClCompile:
+         Для всех выходных данных обновления не требуется.
+         D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\Compil.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt Compil.cpp
+         Compil.cpp
+     1>d:\docyment\prog\teory language programming\compil\lex.h(122): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\lex.h(302): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(126): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(199): warning C4018: >=: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(258): warning C4018: >=: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(272): warning C4129: =: неизвестная escape-последовательность
+     1>d:\docyment\prog\teory language programming\compil\synt.h(317): warning C4018: >=: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(368): warning C4018: >=: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(426): warning C4018: >=: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(471): warning C4018: >=: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(578): warning C4018: >=: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(612): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(628): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(634): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(643): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(709): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(721): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\synt.h(805): warning C4018: <: несоответствие типов со знаком и без знака
+     1>d:\docyment\prog\teory language programming\compil\compil.cpp(48): warning C4101: k: неиспользованная локальная переменная
+     1>d:\docyment\prog\teory language programming\compil\compil.cpp(104): warning C4244: инициализация: преобразование "std::streamoff" в "unsigned int", возможна потеря данных
+       ManifestResourceCompile:
+         Для всех выходных данных обновления не требуется.
+       Link:
+         D:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Docyment\prog\Teory Language Programming\Compil\Debug\Compil.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\Compil.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\Docyment\prog\Teory Language Programming\Compil\Debug\Compil.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Docyment\prog\Teory Language Programming\Compil\Debug\Compil.lib" /MACHINE:X86 Debug\Compil.exe.embed.manifest.res
+         Debug\Compil.obj
+         Debug\stdafx.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\Compil.exe.embed.manifest" /manifest Debug\Compil.exe.intermediate.manifest
+         Для всех выходных данных обновления не требуется.
+       LinkEmbedManifest:
+         Для всех выходных данных обновления не требуется.
+         Compil.vcxproj -> D:\Docyment\prog\Teory Language Programming\Compil\Debug\Compil.exe
+       FinalizeBuildStatus:
+         Файл "Debug\Compil.unsuccessfulbuild" удаляется.
+         Обращение к "Debug\Compil.lastbuildstate".
+     1>Построение проекта "D:\Docyment\prog\Teory Language Programming\Compil\Compil.vcxproj" завершено (целевые объекты build).
+
+Построение успешно завершено.
+
+Затраченное время: 00:00:01.77
