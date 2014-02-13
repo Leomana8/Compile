@@ -1,18 +1,18 @@
-#include "Lex.h"
+п»ї#include "Lex.h"
 
 enum ID_errors
 {
-	 E_UNK_ID,// необъявленный идентификатор
-	 E_INV_CONS, // недопустимая последовательность
-	 E_NON_ID, // отсутствие идентификатора на переменную
-	 E_REDEFINE // переопределение переменной
+	 E_UNK_ID,// РЅРµРѕР±СЉСЏРІР»РµРЅРЅС‹Р№ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ
+	 E_INV_CONS, // РЅРµРґРѕРїСѓСЃС‚РёРјР°СЏ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ
+	 E_NON_ID, // РѕС‚СЃСѓС‚СЃС‚РІРёРµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР° РЅР° РїРµСЂРµРјРµРЅРЅСѓСЋ
+	 E_REDEFINE // РїРµСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№
 };
-// структура дерева разбора
+// СЃС‚СЂСѓРєС‚СѓСЂР° РґРµСЂРµРІР° СЂР°Р·Р±РѕСЂР°
 struct Parse_Tree
 {
 	Token lex;
 	Parse_Tree* next1;
-	Parse_Tree* next2; // может быть только у операции
+	Parse_Tree* next2; // РјРѕР¶РµС‚ Р±С‹С‚СЊ С‚РѕР»СЊРєРѕ Сѓ РѕРїРµСЂР°С†РёРё
 	Parse_Tree* prev;
 
 	Parse_Tree()
@@ -38,7 +38,7 @@ struct Parse_Tree
 	
 };
 
-// структура созданных переменных
+// СЃС‚СЂСѓРєС‚СѓСЂР° СЃРѕР·РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
 struct Created_Var
 {
 	string name;
@@ -49,7 +49,7 @@ struct Created_Var
 };
 
 
-// вывод объекта типа Created_Var
+// РІС‹РІРѕРґ РѕР±СЉРµРєС‚Р° С‚РёРїР° Created_Var
 ostream &operator<< (ostream &stream, Created_Var ob)
 {
 	stream << " - " << ob.name << " #" << ob.type;
@@ -57,15 +57,15 @@ ostream &operator<< (ostream &stream, Created_Var ob)
 }
 class Synt : public Lex
 {
-	// массив указателей на начало каждого выражения (деревья синтак.разбора)
-	// выражаение заканчиваетя ;
+	// РјР°СЃСЃРёРІ СѓРєР°Р·Р°С‚РµР»РµР№ РЅР° РЅР°С‡Р°Р»Рѕ РєР°Р¶РґРѕРіРѕ РІС‹СЂР°Р¶РµРЅРёСЏ (РґРµСЂРµРІСЊСЏ СЃРёРЅС‚Р°Рє.СЂР°Р·Р±РѕСЂР°)
+	// РІС‹СЂР°Р¶Р°РµРЅРёРµ Р·Р°РєР°РЅС‡РёРІР°РµС‚СЏ ;
 	//Parse_Tree** tops_trees;
 	vector<Parse_Tree*> tops_trees;
-	// на последние элементы
+	// РЅР° РїРѕСЃР»РµРґРЅРёРµ СЌР»РµРјРµРЅС‚С‹
 	vector<Parse_Tree*> bottoms_trees;
 	//Parse_Tree** bottoms_trees;
 	
-	// таблица созданных переменных
+	// С‚Р°Р±Р»РёС†Р° СЃРѕР·РґР°РЅРЅС‹С… РїРµСЂРµРјРµРЅРЅС‹С…
 	vector<Created_Var> var;
 
 	ofstream file;
@@ -78,12 +78,12 @@ class Synt : public Lex
 	int Cur_MNumber(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree* wOP);
 	int Cur_Op(Parse_Tree* cur, int i, int j, Parse_Tree* wM, Parse_Tree* wOP);
 	int Cur_OpVarNum(Parse_Tree* cur, int i, int j, Parse_Tree* wM, Parse_Tree* wOP);
-	// при ошибке прогнать токены до завершения выражения(;)
+	// РїСЂРё РѕС€РёР±РєРµ РїСЂРѕРіРЅР°С‚СЊ С‚РѕРєРµРЅС‹ РґРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ РІС‹СЂР°Р¶РµРЅРёСЏ(;)
 	int Go_to_end(int i);
 	int Find_name(string st);
-	void Del_expres(Parse_Tree*); // удаление целого выражения
-	void Del_ob(Parse_Tree* cur); // удаление одного объекта
-	// печать одного токена
+	void Del_expres(Parse_Tree*); // СѓРґР°Р»РµРЅРёРµ С†РµР»РѕРіРѕ РІС‹СЂР°Р¶РµРЅРёСЏ
+	void Del_ob(Parse_Tree* cur); // СѓРґР°Р»РµРЅРёРµ РѕРґРЅРѕРіРѕ РѕР±СЉРµРєС‚Р°
+	// РїРµС‡Р°С‚СЊ РѕРґРЅРѕРіРѕ С‚РѕРєРµРЅР°
 	void Pr_T(Parse_Tree* cur);
 	void Pr_instructions(Parse_Tree* cur); 
 	void P(Parse_Tree* c, void (Synt::*send_token)(Parse_Tree*));
@@ -95,14 +95,14 @@ public:
 	void Print(int);
 	~Synt();
 
-	// Генерация кода
+	// Р“РµРЅРµСЂР°С†РёСЏ РєРѕРґР°
 	bool Code_generation (char *path);
 	
 };
 
 Synt::Synt(Lex *Ob)
 {
-	// переходим к анализу только если нет лексических ошибок
+	// РїРµСЂРµС…РѕРґРёРј Рє Р°РЅР°Р»РёР·Сѓ С‚РѕР»СЊРєРѕ РµСЃР»Рё РЅРµС‚ Р»РµРєСЃРёС‡РµСЃРєРёС… РѕС€РёР±РѕРє
 	if(!Ob->isError())
 	{
 		names_variable = Ob->getNV();
@@ -118,10 +118,10 @@ Synt::Synt(Lex *Ob)
 void Synt::Parser()
 {
 	int i = 0;
-	int j = 0; // номер выражения
+	int j = 0; // РЅРѕРјРµСЂ РІС‹СЂР°Р¶РµРЅРёСЏ
 	int cond = 0;
-	Parse_Tree* waitingMOV = NULL; // указывает на последнюю операцию =
-	Parse_Tree* waitingOP = NULL;// указывает на ожидающую операцию 
+	Parse_Tree* waitingMOV = NULL; // СѓРєР°Р·С‹РІР°РµС‚ РЅР° РїРѕСЃР»РµРґРЅСЋСЋ РѕРїРµСЂР°С†РёСЋ =
+	Parse_Tree* waitingOP = NULL;// СѓРєР°Р·С‹РІР°РµС‚ РЅР° РѕР¶РёРґР°СЋС‰СѓСЋ РѕРїРµСЂР°С†РёСЋ 
 	
 	while (i < tokens.size())
 	{
@@ -130,11 +130,11 @@ void Synt::Parser()
 		waitingOP = NULL;
 		if(errors.size() == 0)
 		{
-			// текущий указатель на будущий элемент дерева
+			// С‚РµРєСѓС‰РёР№ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р±СѓРґСѓС‰РёР№ СЌР»РµРјРµРЅС‚ РґРµСЂРµРІР°
 			current = new Parse_Tree();
-			// создаем указатель на начало дерево
+			// СЃРѕР·РґР°РµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅР°С‡Р°Р»Рѕ РґРµСЂРµРІРѕ
 			tops_trees.push_back(current) ;
-			// указатель на конец
+			// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РєРѕРЅРµС†
 			bottoms_trees.push_back(current) ;
 		}
 		else
@@ -151,7 +151,7 @@ void Synt::Parser()
 			i = Cur_Reserved(current, i, j, waitingMOV, waitingOP);
 			break;
 		default:
-			// удаляем ненужную часть дерева
+			// СѓРґР°Р»СЏРµРј РЅРµРЅСѓР¶РЅСѓСЋ С‡Р°СЃС‚СЊ РґРµСЂРµРІР°
 			Del_ob(current);
 			if(tokens[i].ltype == L_OPERATION && tokens[i].lvalue == OP_END)				
 				break;
@@ -186,7 +186,7 @@ int Synt::Cur_Reserved(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree*
 	Created_Var v;
 	if(errors.size() == 0)
 	{
-		// нет ошибок , добавляем в таблицу переменных тип предполагаемой переменной		
+		// РЅРµС‚ РѕС€РёР±РѕРє , РґРѕР±Р°РІР»СЏРµРј РІ С‚Р°Р±Р»РёС†Сѓ РїРµСЂРµРјРµРЅРЅС‹С… С‚РёРї РїСЂРµРґРїРѕР»Р°РіР°РµРјРѕР№ РїРµСЂРµРјРµРЅРЅРѕР№		
 		switch(tokens[i].lvalue)
 		{
 		case R_INT: v.type = R_INT; break;
@@ -195,20 +195,20 @@ int Synt::Cur_Reserved(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree*
 		v.name = "";
 		
 	}
-	// переходим на следующий токен с проверкой на концовку
+	// РїРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ СЃ РїСЂРѕРІРµСЂРєРѕР№ РЅР° РєРѕРЅС†РѕРІРєСѓ
 	if(++i >= tokens.size())
 		return i;
-	// ожидаем в следующем токене переменную
+	// РѕР¶РёРґР°РµРј РІ СЃР»РµРґСѓСЋС‰РµРј С‚РѕРєРµРЅРµ РїРµСЂРµРјРµРЅРЅСѓСЋ
 	if (tokens[i].ltype == L_VARIABLE)
 	{
 		if(errors.size() == 0)
 			var.push_back(v);
 		i = Cur_RVariable(cur, i, j, wM, wOP);
 	}
-	// ошибка, отсутствует переменная
+	// РѕС€РёР±РєР°, РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РїРµСЂРµРјРµРЅРЅР°СЏ
 	else
 	{
-		// удаляем ненужную часть дерева
+		// СѓРґР°Р»СЏРµРј РЅРµРЅСѓР¶РЅСѓСЋ С‡Р°СЃС‚СЊ РґРµСЂРµРІР°
 		Del_ob(cur);
 		Errorka t;
 		t.er = E_NON_ID;
@@ -222,9 +222,9 @@ int Synt::Cur_Reserved(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree*
 int Synt::Cur_Variable(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree* wOP)
 {
 	
-		if(Find_name(names_variable[tokens[i].lvalue]) != -1) // если переменная объявлена
+		if(Find_name(names_variable[tokens[i].lvalue]) != -1) // РµСЃР»Рё РїРµСЂРµРјРµРЅРЅР°СЏ РѕР±СЉСЏРІР»РµРЅР°
 		{
-			// дополняем дерево
+			// РґРѕРїРѕР»РЅСЏРµРј РґРµСЂРµРІРѕ
 			if(errors.size() == 0)
 			{
 				cur->lex = tokens[i];
@@ -236,13 +236,13 @@ int Synt::Cur_Variable(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree*
 			}
 			
 		}
-		// ошибка,  переменная не была объявлена 
+		// РѕС€РёР±РєР°,  РїРµСЂРµРјРµРЅРЅР°СЏ РЅРµ Р±С‹Р»Р° РѕР±СЉСЏРІР»РµРЅР° 
 		else
 		{	
 			if(errors.size() == 0)
 			{
 				Del_ob(cur);
-			}// удаление пустой ветки
+			}// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 				Errorka t;
 				t.er = E_UNK_ID;	
 				t.n_str = tokens[i].n_str;
@@ -254,18 +254,18 @@ int Synt::Cur_Variable(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree*
 			
 		}	
 	
-	// переходим на следующий токен с проверкой на концовку
+	// РїРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ СЃ РїСЂРѕРІРµСЂРєРѕР№ РЅР° РєРѕРЅС†РѕРІРєСѓ
 	if(++i >= tokens.size())
 		return i;
-	// ожидаем знак равенства
+	// РѕР¶РёРґР°РµРј Р·РЅР°Рє СЂР°РІРµРЅСЃС‚РІР°
 	if(tokens[i].ltype == L_OPERATION && tokens[i].lvalue == OP_MOV)
 	{
 		i = Cur_MOV(cur, i, j, wM, wOP);
 	}
-	// ошибка, недопустимый следующий токен 
+	// РѕС€РёР±РєР°, РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ 
 	else
 	{
-		Del_ob(cur);// удаление пустой ветки
+		Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 		Errorka t;
 		t.er = E_INV_CONS;
 		t.n_str = tokens[i].n_str;
@@ -279,14 +279,14 @@ int Synt::Cur_Variable(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree*
 int Synt::Cur_RVariable(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree* wOP)
 {
 	
-		if(Find_name(names_variable[tokens[i].lvalue]) == -1) // переменная не была объявлена
+		if(Find_name(names_variable[tokens[i].lvalue]) == -1) // РїРµСЂРµРјРµРЅРЅР°СЏ РЅРµ Р±С‹Р»Р° РѕР±СЉСЏРІР»РµРЅР°
 		{
-			// заносим идентификатор в таблицу переменных
+			// Р·Р°РЅРѕСЃРёРј РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ РІ С‚Р°Р±Р»РёС†Сѓ РїРµСЂРµРјРµРЅРЅС‹С…
 			var[var.size() - 1].name = names_variable[tokens[i].lvalue];
 			if(errors.size() == 0)
 			{
 				
-				// дополняем дерево			
+				// РґРѕРїРѕР»РЅСЏРµРј РґРµСЂРµРІРѕ			
 				cur->lex = tokens[i];
 				cur->next1 = new Parse_Tree;
 				bottoms_trees.back() = cur;
@@ -296,12 +296,12 @@ int Synt::Cur_RVariable(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree
 			}
 			
 		}
-		else // ошибка, пeреопределение переменной
+		else // РѕС€РёР±РєР°, РїeСЂРµРѕРїСЂРµРґРµР»РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№
 		{
 			if(errors.size() == 0)
 			{
 				Del_ob(cur); 
-			}// удаление пустой ветки
+			}// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 				Errorka t;
 				t.er = E_REDEFINE;
 				t.n_str = tokens[i].n_str;
@@ -313,10 +313,10 @@ int Synt::Cur_RVariable(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree
 			
 		}
 	
-		// переходим на следующий токен с проверкой на концовку
+		// РїРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ СЃ РїСЂРѕРІРµСЂРєРѕР№ РЅР° РєРѕРЅС†РѕРІРєСѓ
 		if(++i >= tokens.size())
 			return i;
-		// ожидаем знак равенства или ;
+		// РѕР¶РёРґР°РµРј Р·РЅР°Рє СЂР°РІРµРЅСЃС‚РІР° РёР»Рё ;
 		if(tokens[i].ltype == L_OPERATION && tokens[i].lvalue == OP_MOV)
 		{
 			i = Cur_MOV(cur, i, j, wM, wOP);
@@ -328,14 +328,14 @@ int Synt::Cur_RVariable(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree
 				Parse_Tree* c = NULL;
 				if(cur != NULL)
 					c = cur->prev;
-				Del_ob(cur);// удаление пустой ветки
-				Del_ob(c); // в дереве одна перменная - ненужна
+				Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
+				Del_ob(c); // РІ РґРµСЂРµРІРµ РѕРґРЅР° РїРµСЂРјРµРЅРЅР°СЏ - РЅРµРЅСѓР¶РЅР°
 				return i;
 			}
-			// ошибка, недопустимый следующий токен 
+			// РѕС€РёР±РєР°, РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ 
 			else
 			{
-				Del_ob(cur);// удаление пустой ветки
+				Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 				Errorka t;
 				t.er = E_INV_CONS;
 				t.n_str = tokens[i].n_str;
@@ -351,23 +351,23 @@ int Synt::Cur_MOV(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree* wOP)
 {
 	if(errors.size() == 0)
 	{
-		// дополняем дерево
-		// заносим токен равенства перед предыдущим операндом (обмен токенами)
+		// РґРѕРїРѕР»РЅСЏРµРј РґРµСЂРµРІРѕ
+		// Р·Р°РЅРѕСЃРёРј С‚РѕРєРµРЅ СЂР°РІРµРЅСЃС‚РІР° РїРµСЂРµРґ РїСЂРµРґС‹РґСѓС‰РёРј РѕРїРµСЂР°РЅРґРѕРј (РѕР±РјРµРЅ С‚РѕРєРµРЅР°РјРё)
 		
-		cur->lex = cur->prev->lex; // cur имеет операнд
-		cur->prev->lex = tokens[i]; // = теперь перед операндом
+		cur->lex = cur->prev->lex; // cur РёРјРµРµС‚ РѕРїРµСЂР°РЅРґ
+		cur->prev->lex = tokens[i]; // = С‚РµРїРµСЂСЊ РїРµСЂРµРґ РѕРїРµСЂР°РЅРґРѕРј
 		cur->next1 = new Parse_Tree;
 		bottoms_trees.back() = cur;
 		Parse_Tree* c = cur;
 		cur = cur->next1;
 		cur->prev = c;
-		// ссылаемся на операнд после знака равенства
+		// СЃСЃС‹Р»Р°РµРјСЃСЏ РЅР° РѕРїРµСЂР°РЅРґ РїРѕСЃР»Рµ Р·РЅР°РєР° СЂР°РІРµРЅСЃС‚РІР°
 		wM = c;
 	}
-	// переходим на следующий токен с проверкой на концовку
+	// РїРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ СЃ РїСЂРѕРІРµСЂРєРѕР№ РЅР° РєРѕРЅС†РѕРІРєСѓ
 	if(++i >= tokens.size())
 		return i;
-	// ожидаем переменную или число
+	// РѕР¶РёРґР°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ РёР»Рё С‡РёСЃР»Рѕ
 	if(tokens[i].ltype == L_VARIABLE )
 	{
 		i = Cur_MVariable(cur, i, j, wM, wOP);
@@ -378,10 +378,10 @@ int Synt::Cur_MOV(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree* wOP)
 		{
 			i = Cur_MNumber(cur, i, j, wM, wOP);
 		}
-		// ошибка, недопустимый следующий токен 
+		// РѕС€РёР±РєР°, РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ 
 		else
 		{
-			Del_ob(cur);// удаление пустой ветки
+			Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 			Errorka t;
 			t.er = E_INV_CONS;
 			t.n_str = tokens[i].n_str;
@@ -396,10 +396,10 @@ int Synt::Cur_MVariable(Parse_Tree* cur, int i,int j,Parse_Tree* wM, Parse_Tree*
 {
 	if(errors.size() == 0)
 	{
-		if(Find_name(names_variable[tokens[i].lvalue]) != -1) // переменная была объявлена
+		if(Find_name(names_variable[tokens[i].lvalue]) != -1) // РїРµСЂРµРјРµРЅРЅР°СЏ Р±С‹Р»Р° РѕР±СЉСЏРІР»РµРЅР°
 		{
 
-			// дополняем дерево			
+			// РґРѕРїРѕР»РЅСЏРµРј РґРµСЂРµРІРѕ			
 			cur->lex = tokens[i];
 			cur->next1 = new Parse_Tree;
 			bottoms_trees.back() = cur;
@@ -408,10 +408,10 @@ int Synt::Cur_MVariable(Parse_Tree* cur, int i,int j,Parse_Tree* wM, Parse_Tree*
 			cur->prev = c;
 
 		}
-		// ошибка,  переменная не была объявлена 
+		// РѕС€РёР±РєР°,  РїРµСЂРµРјРµРЅРЅР°СЏ РЅРµ Р±С‹Р»Р° РѕР±СЉСЏРІР»РµРЅР° 
 		else
 		{
-			Del_ob(cur);// удаление пустой ветки
+			Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 			Errorka t;
 			t.er = E_UNK_ID;
 			t.n_str = tokens[i].n_str;
@@ -422,10 +422,10 @@ int Synt::Cur_MVariable(Parse_Tree* cur, int i,int j,Parse_Tree* wM, Parse_Tree*
 			return i;
 		}
 	}
-		// переходим на следующий токен с проверкой на концовку
+		// РїРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ СЃ РїСЂРѕРІРµСЂРєРѕР№ РЅР° РєРѕРЅС†РѕРІРєСѓ
 		if(++i >= tokens.size())
 			return i;
-		// ожидаем  любую операцию
+		// РѕР¶РёРґР°РµРј  Р»СЋР±СѓСЋ РѕРїРµСЂР°С†РёСЋ
 		if(tokens[i].ltype == L_OPERATION )
 		{
 			switch(tokens[i].lvalue)
@@ -433,7 +433,7 @@ int Synt::Cur_MVariable(Parse_Tree* cur, int i,int j,Parse_Tree* wM, Parse_Tree*
 			case OP_MOV:
 				i = Cur_MOV(cur, i, j, wM, wOP); break;
 			case OP_END:
-				Del_ob(cur);// удаление пустой ветки
+				Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 				break;
 			default:
 				i = Cur_Op(cur, i, j, wM, wOP); 
@@ -442,8 +442,8 @@ int Synt::Cur_MVariable(Parse_Tree* cur, int i,int j,Parse_Tree* wM, Parse_Tree*
 		}
 		else 
 		{
-			// ошибка, недопустимый следующий токен 
-			Del_ob(cur);// удаление пустой ветки
+			// РѕС€РёР±РєР°, РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ 
+			Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 			Errorka t;
 			t.er = E_INV_CONS;
 			t.n_str = tokens[i].n_str;
@@ -458,7 +458,7 @@ int Synt::Cur_MNumber(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree* 
 {
 	if(errors.size() == 0)
 	{
-		// дополняем дерево			
+		// РґРѕРїРѕР»РЅСЏРµРј РґРµСЂРµРІРѕ			
 
 		cur->lex = tokens[i];
 		cur->next1 = new Parse_Tree;
@@ -467,18 +467,18 @@ int Synt::Cur_MNumber(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree* 
 		cur = cur->next1;
 		cur->prev = c;
 	}
-		// переходим на следующий токен с проверкой на концовку
+		// РїРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ СЃ РїСЂРѕРІРµСЂРєРѕР№ РЅР° РєРѕРЅС†РѕРІРєСѓ
 		if(++i >= tokens.size())
 			return i;
-		// ожидаем знак любой операции
+		// РѕР¶РёРґР°РµРј Р·РЅР°Рє Р»СЋР±РѕР№ РѕРїРµСЂР°С†РёРё
 		if(tokens[i].ltype == L_OPERATION )
 		{
 			switch(tokens[i].lvalue)
 			{
 			case OP_MOV:
 				{
-				// ошибка, недопустимый следующий токен 
-					Del_ob(cur);// удаление пустой ветки
+				// РѕС€РёР±РєР°, РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ 
+					Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 					Errorka t;
 					t.er = E_INV_CONS;
 					t.n_str = tokens[i].n_str;
@@ -488,7 +488,7 @@ int Synt::Cur_MNumber(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree* 
 					break;
 				}
 			case OP_END: 
-				Del_ob(cur);// удаление пустой ветки
+				Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 				break;
 			default:
 				i = Cur_Op(cur, i, j, wM, wOP); 
@@ -497,8 +497,8 @@ int Synt::Cur_MNumber(Parse_Tree* cur, int i, int j,Parse_Tree* wM, Parse_Tree* 
 		}
 		else 
 		{
-			// ошибка, недопустимый следующий токен 
-			Del_ob(cur);// удаление пустой ветки
+			// РѕС€РёР±РєР°, РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ 
+			Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 			Errorka t;
 			t.er = E_INV_CONS;
 			t.n_str = tokens[i].n_str;
@@ -513,46 +513,46 @@ int Synt::Cur_Op(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree* wOP)
 {
 	if(errors.size() == 0)
 	{
-		// дополняем дерево
-		// заносим токен равенства перед предыдущим операндом
+		// РґРѕРїРѕР»РЅСЏРµРј РґРµСЂРµРІРѕ
+		// Р·Р°РЅРѕСЃРёРј С‚РѕРєРµРЅ СЂР°РІРµРЅСЃС‚РІР° РїРµСЂРµРґ РїСЂРµРґС‹РґСѓС‰РёРј РѕРїРµСЂР°РЅРґРѕРј
 		
 		Parse_Tree* c;
 		if(tokens[i].lvalue == OP_MINUS ||  tokens[i].lvalue == OP_PLUS)
 		{
 			wOP = NULL;	
 			cur->lex = tokens[i];
-			// указатель предыдщего токена для разрыва связи опернда с текущим токеном 
-			// при существовании ожидающей операции
+			// СѓРєР°Р·Р°С‚РµР»СЊ РїСЂРµРґС‹РґС‰РµРіРѕ С‚РѕРєРµРЅР° РґР»СЏ СЂР°Р·СЂС‹РІР° СЃРІСЏР·Рё РѕРїРµСЂРЅРґР° СЃ С‚РµРєСѓС‰РёРј С‚РѕРєРµРЅРѕРј 
+			// РїСЂРё СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРё РѕР¶РёРґР°СЋС‰РµР№ РѕРїРµСЂР°С†РёРё
 			Parse_Tree* pr = cur->prev; 
 			c = wM->next1;
 			cur->next1 = c;
 			cur->prev = wM;
 			wM->next1 = cur;
 			c->prev = cur;
-			if(c->next1 == NULL || c->lex.ltype != L_OPERATION) // если это первая операция в выражении
+			if(c->next1 == NULL || c->lex.ltype != L_OPERATION) // РµСЃР»Рё СЌС‚Рѕ РїРµСЂРІР°СЏ РѕРїРµСЂР°С†РёСЏ РІ РІС‹СЂР°Р¶РµРЅРёРё
 			{
 				
 				c->next1 = new Parse_Tree;
-				wOP = cur; // текущий токен операции является ожидающей операцией
+				wOP = cur; // С‚РµРєСѓС‰РёР№ С‚РѕРєРµРЅ РѕРїРµСЂР°С†РёРё СЏРІР»СЏРµС‚СЃСЏ РѕР¶РёРґР°СЋС‰РµР№ РѕРїРµСЂР°С†РёРµР№
 				cur = c->next1;
 				cur->prev = c;
 			}
 			else
 			{
 				
-				pr->next1 = NULL; // разрывем связь у операнда с текущей операцией
+				pr->next1 = NULL; // СЂР°Р·СЂС‹РІРµРј СЃРІСЏР·СЊ Сѓ РѕРїРµСЂР°РЅРґР° СЃ С‚РµРєСѓС‰РµР№ РѕРїРµСЂР°С†РёРµР№
 				c->next2 = new Parse_Tree;
-				// текущий токен не меняется
+				// С‚РµРєСѓС‰РёР№ С‚РѕРєРµРЅ РЅРµ РјРµРЅСЏРµС‚СЃСЏ
 				cur = c->next2;
 				cur->prev = c;
 			}			
 		}
 		else
 		{
-			// дополняем дерево
-			// заносим токен равенства перед предыдущим операндом (обмен токенами)
+			// РґРѕРїРѕР»РЅСЏРµРј РґРµСЂРµРІРѕ
+			// Р·Р°РЅРѕСЃРёРј С‚РѕРєРµРЅ СЂР°РІРµРЅСЃС‚РІР° РїРµСЂРµРґ РїСЂРµРґС‹РґСѓС‰РёРј РѕРїРµСЂР°РЅРґРѕРј (РѕР±РјРµРЅ С‚РѕРєРµРЅР°РјРё)
 		
-			cur->lex = cur->prev->lex; // cur имеет операнд
+			cur->lex = cur->prev->lex; // cur РёРјРµРµС‚ РѕРїРµСЂР°РЅРґ
 			cur->prev->lex = tokens[i]; 
 			wOP = cur->prev;
 			bottoms_trees.back() = cur;
@@ -574,10 +574,10 @@ int Synt::Cur_Op(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree* wOP)
 		}
 	}
 	//Print();
-	// переходим на следующий токен с проверкой на концовку
+	// РїРµСЂРµС…РѕРґРёРј РЅР° СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ СЃ РїСЂРѕРІРµСЂРєРѕР№ РЅР° РєРѕРЅС†РѕРІРєСѓ
 	if(++i >= tokens.size())
 		return i;
-	// ожидаем переменную или число
+	// РѕР¶РёРґР°РµРј РїРµСЂРµРјРµРЅРЅСѓСЋ РёР»Рё С‡РёСЃР»Рѕ
 	if(tokens[i].ltype == L_VARIABLE )
 	{
 		i = Cur_MVariable(cur, i, j, wM, wOP);
@@ -588,10 +588,10 @@ int Synt::Cur_Op(Parse_Tree* cur, int i,int j, Parse_Tree* wM, Parse_Tree* wOP)
 		{
 			i = Cur_MNumber(cur, i, j, wM, wOP);
 		}
-		// ошибка, недопустимый следующий токен 
+		// РѕС€РёР±РєР°, РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЃР»РµРґСѓСЋС‰РёР№ С‚РѕРєРµРЅ 
 		else
 		{
-			Del_ob(cur);// удаление пустой ветки
+			Del_ob(cur);// СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 			Errorka t;
 			t.er = E_INV_CONS;
 			t.n_str = tokens[i].n_str;
@@ -617,7 +617,7 @@ int Synt::Go_to_end(int i)
 void Synt::Print(int ch)
 {
 	int i; 
-	void (Synt::*send_token)(Parse_Tree*); // указатель на функцию
+	void (Synt::*send_token)(Parse_Tree*); // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С„СѓРЅРєС†РёСЋ
 	if(ch != 0)
 		send_token = &Synt::Pr_instructions;
 		
@@ -637,7 +637,7 @@ void Synt::Print(int ch)
 		}		
 	cout << "\nTree:\n";
 	}
-	// для того чтобы не зациклится при наличии ветки next2 и пройти ветку только один раз
+	// РґР»СЏ С‚РѕРіРѕ С‡С‚РѕР±С‹ РЅРµ Р·Р°С†РёРєР»РёС‚СЃСЏ РїСЂРё РЅР°Р»РёС‡РёРё РІРµС‚РєРё next2 Рё РїСЂРѕР№С‚Рё РІРµС‚РєСѓ С‚РѕР»СЊРєРѕ РѕРґРёРЅ СЂР°Р·
 	Parse_Tree* n2 = NULL; 
 	int ne2 = 0;
 	for(i = 0; i < tops_trees.size(); i++)
@@ -711,7 +711,7 @@ int Synt::Find_name(string st)
 		if(var[i].name == st)
 			return i;
 	}
-	// не нашли
+	// РЅРµ РЅР°С€Р»Рё
 	return -1;
 }
 
@@ -765,7 +765,7 @@ void Synt::Del_ob(Parse_Tree* cur)
 			q->next1 = NULL;
 			q->next2 = NULL;
 		}
-		delete cur; // удаление пустой ветки
+		delete cur; // СѓРґР°Р»РµРЅРёРµ РїСѓСЃС‚РѕР№ РІРµС‚РєРё
 		cur = NULL;
 	}
 }
@@ -782,20 +782,20 @@ bool Synt::Code_generation (char *path)
 		system("pause");
 		return false;
 	}
-	file << ";===[ Начало сегмента кода ]==== \n\
+	file << ";===[ РќР°С‡Р°Р»Рѕ СЃРµРіРјРµРЅС‚Р° РєРѕРґР° ]==== \n\
 			MYCODE: segment .code \n\
-			START:	;---[ Точка старта ]----\n\
+			START:	;---[ РўРѕС‡РєР° СЃС‚Р°СЂС‚Р° ]----\n\
 			push eax\n\
 			push ebp\n\
 			mov ebp, esp\n";
 	Print(1);
 
-	file << "\n;---[ Стандартное завершение программы ]---\n\
+	file << "\n;---[ РЎС‚Р°РЅРґР°СЂС‚РЅРѕРµ Р·Р°РІРµСЂС€РµРЅРёРµ РїСЂРѕРіСЂР°РјРјС‹ ]---\n\
 		mov AX, 4C00h\n\
 		int 21h\n";
 	if(num_const_float.size() > 0)
 	{
-		file << ";===[ Начало сегмента данных ]===\n\
+		file << ";===[ РќР°С‡Р°Р»Рѕ СЃРµРіРјРµРЅС‚Р° РґР°РЅРЅС‹С… ]===\n\
 		; ...\n\
 		align 16, db 90h\n\
 		db '=MY='\n\

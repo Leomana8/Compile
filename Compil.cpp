@@ -1,4 +1,4 @@
-// Compil.cpp: определяет точку входа для консольного приложения.
+п»ї// Compil.cpp: РѕРїСЂРµРґРµР»СЏРµС‚ С‚РѕС‡РєСѓ РІС…РѕРґР° РґР»СЏ РєРѕРЅСЃРѕР»СЊРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ.
 //
 
 #include "stdafx.h"
@@ -42,7 +42,7 @@ int main(int argc, _TCHAR* argv[])
 		cout << endl;
 	
 		system("pause");
-		// Лексический анализатор
+		// Р›РµРєСЃРёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР·Р°С‚РѕСЂ
 		Lex* lexer = new Lex(buf);
 	
 			int k;
@@ -76,7 +76,7 @@ int main(int argc, _TCHAR* argv[])
 }
 
 
-// Записать текст файла в массив
+// Р—Р°РїРёСЃР°С‚СЊ С‚РµРєСЃС‚ С„Р°Р№Р»Р° РІ РјР°СЃСЃРёРІ
 
 char * Write_file_to_buf(const char* path)
 {
@@ -90,7 +90,7 @@ char * Write_file_to_buf(const char* path)
 		system("pause");
 		return NULL;
 	}
-	// определим размер файла
+	// РѕРїСЂРµРґРµР»РёРј СЂР°Р·РјРµСЂ С„Р°Р№Р»Р°
 	file.seekg (0, std::ios::end);
 	size = file.tellg();
 	file.seekg (0, std::ios::beg);
@@ -102,7 +102,7 @@ char * Write_file_to_buf(const char* path)
 		return NULL;
 	}
 	buf = new char[size + 1];
-	// считать весь файл в buf
+	// СЃС‡РёС‚Р°С‚СЊ РІРµСЃСЊ С„Р°Р№Р» РІ buf
 	file.getline(buf,size+1, EOF);
 	if (file.gcount() < 1)
 	{

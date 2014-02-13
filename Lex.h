@@ -1,4 +1,4 @@
-#include <vector>
+п»ї#include <vector>
 #include <cctype>
 #include <string>
 #include <iostream>
@@ -7,17 +7,17 @@
 using namespace std;
 
 #pragma once
-// Лексемы
+// Р›РµРєСЃРµРјС‹
 enum ID_lexem {
-	L_VARIABLE, // перменная
-	L_NUMBER_INT, // число целочисленное
-	L_NUMBER_FLOAT, // число вещественное
-	L_OPERATION, // операция
-	L_RESERVED, // зарезервированное слово
-	L_WRONG, // недопустимый символ
-	L_ // пустой
+	L_VARIABLE, // РїРµСЂРјРµРЅРЅР°СЏ
+	L_NUMBER_INT, // С‡РёСЃР»Рѕ С†РµР»РѕС‡РёСЃР»РµРЅРЅРѕРµ
+	L_NUMBER_FLOAT, // С‡РёСЃР»Рѕ РІРµС‰РµСЃС‚РІРµРЅРЅРѕРµ
+	L_OPERATION, // РѕРїРµСЂР°С†РёСЏ
+	L_RESERVED, // Р·Р°СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРЅРѕРµ СЃР»РѕРІРѕ
+	L_WRONG, // РЅРµРґРѕРїСѓСЃС‚РёРјС‹Р№ СЃРёРјРІРѕР»
+	L_ // РїСѓСЃС‚РѕР№
 };
-// Операции
+// РћРїРµСЂР°С†РёРё
 enum ID_operation
 {
 	OP_MOV, // =
@@ -29,7 +29,7 @@ enum ID_operation
 
 };
 
-// Зарезервированные слова
+// Р—Р°СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРЅС‹Рµ СЃР»РѕРІР°
 enum ID_reserved
 {
 	R_INT,
@@ -39,44 +39,44 @@ enum ID_reserved
 
 struct Errorka
 {
-	int er; // тип ошибки
-	int n_str; // номер строки с ошибкой
-	string str; // строка того, что неправильно
+	int er; // С‚РёРї РѕС€РёР±РєРё
+	int n_str; // РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё СЃ РѕС€РёР±РєРѕР№
+	string str; // СЃС‚СЂРѕРєР° С‚РѕРіРѕ, С‡С‚Рѕ РЅРµРїСЂР°РІРёР»СЊРЅРѕ
 	friend ostream &operator<< (ostream &stream, Errorka ob);
 };
-// вывод объекта типа Errorka
+// РІС‹РІРѕРґ РѕР±СЉРµРєС‚Р° С‚РёРїР° Errorka
 ostream &operator<< (ostream &stream, Errorka ob)
 {
 	stream << " - " << ob.str << " #";
 	return stream;
 }
-// Список токенов	
+// РЎРїРёСЃРѕРє С‚РѕРєРµРЅРѕРІ	
 struct Token
 {
-	ID_lexem ltype; // тип лексемы
-	int lvalue; // значение лексемы
-	int n_str; // номер строки
+	ID_lexem ltype; // С‚РёРї Р»РµРєСЃРµРјС‹
+	int lvalue; // Р·РЅР°С‡РµРЅРёРµ Р»РµРєСЃРµРјС‹
+	int n_str; // РЅРѕРјРµСЂ СЃС‚СЂРѕРєРё
 	Token() {ltype = L_; lvalue = -1;}
 	Token(ID_lexem a, int b, int c): ltype(a), lvalue(b), n_str(c)
 	{ }
 
 };
 
-// Класс лексического анализатора
+// РљР»Р°СЃСЃ Р»РµРєСЃРёС‡РµСЃРєРѕРіРѕ Р°РЅР°Р»РёР·Р°С‚РѕСЂР°
 class Lex
 {
 protected:
-	// Таблица имен
+	// РўР°Р±Р»РёС†Р° РёРјРµРЅ
 	vector<string> names_variable;
-	// Таблица целочисленных числовых констант
+	// РўР°Р±Р»РёС†Р° С†РµР»РѕС‡РёСЃР»РµРЅРЅС‹С… С‡РёСЃР»РѕРІС‹С… РєРѕРЅСЃС‚Р°РЅС‚
 	vector<int> num_const_int; 
-	// Таблица вещественных числовых констант
+	// РўР°Р±Р»РёС†Р° РІРµС‰РµСЃС‚РІРµРЅРЅС‹С… С‡РёСЃР»РѕРІС‹С… РєРѕРЅСЃС‚Р°РЅС‚
 	vector<double> num_const_float; 
-	// Таблица накопленных ошибок
+	// РўР°Р±Р»РёС†Р° РЅР°РєРѕРїР»РµРЅРЅС‹С… РѕС€РёР±РѕРє
 	vector<Errorka> errors;
-	// Список токенов
+	// РЎРїРёСЃРѕРє С‚РѕРєРµРЅРѕРІ
 	vector<Token> tokens;
-	int num_expres; // количество выражений
+	int num_expres; // РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹СЂР°Р¶РµРЅРёР№
 
 
 
@@ -88,7 +88,7 @@ public:
 	virtual int Find_name (string st);
 	void Print_Lex();
 
-	// Доступы
+	// Р”РѕСЃС‚СѓРїС‹
 	vector<string> getNV() { return names_variable;}
 	vector<int> getNCI() { return num_const_int;}
 	vector<double> getNCF() { return num_const_float;}
@@ -116,7 +116,7 @@ Lex::~Lex()
 	tokens.clear();
 	
 }
-// поиск номера строки в которой хранится строка st в таблице имен
+// РїРѕРёСЃРє РЅРѕРјРµСЂР° СЃС‚СЂРѕРєРё РІ РєРѕС‚РѕСЂРѕР№ С…СЂР°РЅРёС‚СЃСЏ СЃС‚СЂРѕРєР° st РІ С‚Р°Р±Р»РёС†Рµ РёРјРµРЅ
 int Lex::Find_name ( string st)
 {
 	for(int i = 0; i < names_variable.size(); i++)
@@ -124,11 +124,11 @@ int Lex::Find_name ( string st)
 		if(names_variable[i] == st)
 			return i;
 	}
-	// не нашли
+	// РЅРµ РЅР°С€Р»Рё
 	return -1;
 }
 
-// Лексический анализатор (возращает  количество выражений)
+// Р›РµРєСЃРёС‡РµСЃРєРёР№ Р°РЅР°Р»РёР·Р°С‚РѕСЂ (РІРѕР·СЂР°С‰Р°РµС‚  РєРѕР»РёС‡РµСЃС‚РІРѕ РІС‹СЂР°Р¶РµРЅРёР№)
 void Lex::Lex_Analis (const char * buf)
 {
 	//tokens = new Token();
@@ -136,8 +136,8 @@ void Lex::Lex_Analis (const char * buf)
 	
 	for (int i = 0; buf[i] != '\0'; i++)
 	{
-		// русские не пускаем
-		if(buf[i] >= 'А' && buf[i] <= 'я')
+		// СЂСѓСЃСЃРєРёРµ РЅРµ РїСѓСЃРєР°РµРј
+		if(buf[i] >= 'Рђ' && buf[i] <= 'СЏ')
 		{
 			Errorka t;
 			t.er = 0;				
@@ -147,16 +147,16 @@ void Lex::Lex_Analis (const char * buf)
 			continue;
 		}
 		
-		// БУКВА
+		// Р‘РЈРљР’Рђ
 		if (isalpha(buf[i]))
 		{
 
 			string s;
 			s = buf[i];
-			// пока не соберем слово
+			// РїРѕРєР° РЅРµ СЃРѕР±РµСЂРµРј СЃР»РѕРІРѕ
 			i++;
-			// русские не пускаем
-			if(buf[i] >= 'А' && buf[i] <= 'я')
+			// СЂСѓСЃСЃРєРёРµ РЅРµ РїСѓСЃРєР°РµРј
+			if(buf[i] >= 'Рђ' && buf[i] <= 'СЏ')
 			{
 				Errorka t;
 				t.er = 0;				
@@ -170,7 +170,7 @@ void Lex::Lex_Analis (const char * buf)
 				s += buf[i];
 			}
 			i--;
-			// проверим является ли слово зарезервированным
+			// РїСЂРѕРІРµСЂРёРј СЏРІР»СЏРµС‚СЃСЏ Р»Рё СЃР»РѕРІРѕ Р·Р°СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРЅС‹Рј
 			if (s == "int")
 			{
 				tokens.push_back(Token (L_RESERVED, R_INT, num_str));
@@ -183,7 +183,7 @@ void Lex::Lex_Analis (const char * buf)
 			}
 			else
 			{
-				// ищем в таблице имен считанное
+				// РёС‰РµРј РІ С‚Р°Р±Р»РёС†Рµ РёРјРµРЅ СЃС‡РёС‚Р°РЅРЅРѕРµ
 				int f = Find_name(s);
 				if (f == -1)
 				{
@@ -193,14 +193,14 @@ void Lex::Lex_Analis (const char * buf)
 				tokens.push_back(Token(L_VARIABLE, f, num_str));
 			}
 		}
-		// ЧИСЛО
+		// Р§РРЎР›Рћ
 		else if (isdigit(buf[i]))
 		{
 
 			string s;
 			s = buf[i];
-			int iorf = 0; // если тип float - 2, int - 0, 1 - ошибка из-за отсутвия цифр после точки
-			// пока не соберем число
+			int iorf = 0; // РµСЃР»Рё С‚РёРї float - 2, int - 0, 1 - РѕС€РёР±РєР° РёР·-Р·Р° РѕС‚СЃСѓС‚РІРёСЏ С†РёС„СЂ РїРѕСЃР»Рµ С‚РѕС‡РєРё
+			// РїРѕРєР° РЅРµ СЃРѕР±РµСЂРµРј С‡РёСЃР»Рѕ
 			for (i++; buf[i] != '\0' ; i++)
 			{			
 				if(isdigit(buf[i])) 
@@ -212,14 +212,14 @@ void Lex::Lex_Analis (const char * buf)
 				{
 					if(buf[i] == '.')
 					{
-						// встретили точку
+						// РІСЃС‚СЂРµС‚РёР»Рё С‚РѕС‡РєСѓ
 						if(iorf != 0)
-							// эта уже лишняя точка, запишем ошибку
+							// СЌС‚Р° СѓР¶Рµ Р»РёС€РЅСЏСЏ С‚РѕС‡РєР°, Р·Р°РїРёС€РµРј РѕС€РёР±РєСѓ
 							break;
-						// число типа float
+						// С‡РёСЃР»Рѕ С‚РёРїР° float
 						iorf = 1;						
 					}
-					// это уже не число
+					// СЌС‚Рѕ СѓР¶Рµ РЅРµ С‡РёСЃР»Рѕ
 					else 
 						break;
 				}
@@ -242,7 +242,7 @@ void Lex::Lex_Analis (const char * buf)
 			}
 			else 
 			{
-				// ошибка 
+				// РѕС€РёР±РєР° 
 				Errorka t;
 				t.er = 0;
 				t.str = ".\0";
